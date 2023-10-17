@@ -9,7 +9,6 @@ public class Humanoid : MonoBehaviour
     public float speed = 3f;
     public float jumpForce = 10f;
     void Awake() {
-        Debug.Log("hi");
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
