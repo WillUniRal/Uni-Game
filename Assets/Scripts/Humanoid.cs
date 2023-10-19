@@ -9,6 +9,10 @@ public class Humanoid : MonoBehaviour
     public float speed = 3f;
     public float jumpForce = 10f;
     [HideInInspector] public GroundCheck gc;
+
+    private bool JumpCooldown;
+    private float JumpCooldownTime = 0f;
+
     void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         gc = gameObject.GetComponentInChildren<GroundCheck>();
@@ -18,9 +22,19 @@ public class Humanoid : MonoBehaviour
         rb.velocity = new (speed * amount,rb.velocity.y);
     }
     public void Jump() {
-        if (!Grounded()) return;
-        Debug.Log("Jump!");
+        if (!Grounded() || JumpCooldown) return;
         rb.AddForceY(jumpForce);
+        JumpCooldown = true;
+    }
+    public void Update()
+    {
+        if (!JumpCooldown) return;
+        Debug.Log(JumpCooldownTime);
+        JumpCooldownTime += Time.deltaTime;
+        if (JumpCooldownTime > 0.1f) {
+            JumpCooldownTime = 0f;
+            JumpCooldown = false;
+        }
     }
     public bool Grounded()
     {
