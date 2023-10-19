@@ -11,7 +11,7 @@ public class Enemy : Humanoid
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }

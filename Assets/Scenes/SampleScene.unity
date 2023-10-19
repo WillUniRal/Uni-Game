@@ -476,7 +476,7 @@ Transform:
   m_GameObject: {fileID: 247138991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.84, y: -0.67, z: 0}
+  m_LocalPosition: {x: 3.46, y: 0.57, z: 0}
   m_LocalScale: {x: 7.2202, y: 0.57210636, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -571,10 +571,10 @@ MonoBehaviour:
   - wayPointPosition: {fileID: 0}
     speed: 0
     waitTime: 0
-  height: 1.97
+  height: 2.33
   frequency: 0.7
   damping: 0.1
-  connectorOffset: 2.9
+  connectorOffset: 4.6
   connectionOffset: 0.39
   connectionHeightOffset: 0
   points:
@@ -920,7 +920,7 @@ Transform:
   m_GameObject: {fileID: 1470777273}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0600001, y: 1.97, z: 2.9}
+  m_LocalPosition: {x: -1.1399999, y: 2.8999999, z: 4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1241,7 +1241,7 @@ Transform:
   m_GameObject: {fileID: 1895921175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7400002, y: 1.97, z: 2.9}
+  m_LocalPosition: {x: 8.059999, y: 2.8999999, z: 4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
