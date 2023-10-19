@@ -29,7 +29,7 @@ public class Humanoid : MonoBehaviour
     public void Update()
     {
         if (!JumpCooldown) return;
-        Debug.Log(JumpCooldownTime);
+        //Debug.Log(JumpCooldownTime);
         JumpCooldownTime += Time.deltaTime;
         if (JumpCooldownTime > 0.1f) {
             JumpCooldownTime = 0f;

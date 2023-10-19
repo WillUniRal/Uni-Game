@@ -37,12 +37,13 @@ public class MovingPlatform : MonoBehaviour
 
     }
     [Header("Path")]
-    [SerializeField] private bool startOnNatureRelic = false;
     [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
 
     [Header("Physics")]
     [SerializeField] private float height;
-    [SerializeField] private float spring = 10f;
+    [SerializeField] private float frequency = 0.7f;
+    [SerializeField] private float damping = 0.1f;
+    //[SerializeField] private float spring = 10f;
 
     [Header("Connections/connectors")]
     [SerializeField] private float connectorOffset;
@@ -78,19 +79,16 @@ public class MovingPlatform : MonoBehaviour
         Vector3[] connections = {
             new(o ,y, o),
             new(-o,y, o),
-            new(-o,y,-o),
-            new(o ,y,-o)
         };
         return connections;
     }
     private void PathFollow()
-    {
+    { 
         int thisPos = (pathPos + 1) % wayPoints.Length;
         int lastPos = pathPos % wayPoints.Length;
 
         if (wait)
-        { 
-            Debug.Log(startOnNatureRelic);
+        {
             waitTime += Time.deltaTime;
             if (waitTime >= wayPoints[lastPos].waitTime)
             {
@@ -105,18 +103,23 @@ public class MovingPlatform : MonoBehaviour
             new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
             wayPoints[lastPos].speed * Time.deltaTime
         );
+        Debug.Log(wayPoints[thisPos].pos());
 
         startPos = new Vector3(
             pathXZ.x,
             pathXZ.y,
-            Mathf.MoveTowards(startPos.z, wayPoints[thisPos].pos().z, wayPoints[lastPos].speed * Time.deltaTime)
+            transform.position.z //Mathf.MoveTowards(startPos.z, wayPoints[thisPos].pos().z, wayPoints[lastPos].speed * Time.deltaTime)
          );
         Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime);
+        /*
         transform.position = new Vector3(
             startPos.x,
             startPos.y,
             transform.position.z
         );
+        */
+        Vector3 midpoint = points[0].transform.position - points[1].transform.position;
+        
         //if at the end of path
         if (Vector3.Distance(startPos, wayPoints[thisPos].pos()) < wayPoints[lastPos].speed * Time.deltaTime)
         {
@@ -156,7 +159,7 @@ public class MovingPlatform : MonoBehaviour
 
         points = new GameObject[2];
 
-        while (GetComponents<SpringJoint>().Length != 0) DestroyImmediate(GetComponents<SpringJoint>()[0]);
+        while (GetComponents<SpringJoint2D>().Length != 0) DestroyImmediate(GetComponents<SpringJoint2D>()[0]);
         for (int i = 0; i < points.Length; i++)
         {
             if (points[i] != null) DestroyImmediate(points[i]);
@@ -168,15 +171,19 @@ public class MovingPlatform : MonoBehaviour
             Rigidbody2D rb = points[i].AddComponent<Rigidbody2D>();
             rb.isKinematic = true;
 
-            joints[i] = this.gameObject.AddComponent<SpringJoint2D>();
+            joints[i] = gameObject.AddComponent<SpringJoint2D>();
             joints[i].autoConfigureConnectedAnchor = false;
+            joints[i].autoConfigureDistance = false;
             joints[i].connectedBody = rb;
+            //joints[i].connectedAnchor = new (newObj.transform.position.x, newObj.transform.position.y);
+            joints[i].frequency = frequency;
+            joints[i].dampingRatio = damping;
             joints[i].distance = height;
             joints[i].anchor = connections[i];
 
             points[i].name = "point " + (i + 1).ToString();
             //points[i].transform.parent = transform;
-            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, startPos.z);
+            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, 0f);
         }
     }
     public void SetConnectors()
@@ -189,7 +196,7 @@ public class MovingPlatform : MonoBehaviour
         for (int i = 0; i < points.Length; i++)
         {
             joints = GetComponents<SpringJoint2D>();
-            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, startPos.z);
+            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, 0f);
 
             //joints[i].maxDistance = height;
             //joints[i].minDistance = height;
@@ -227,7 +234,7 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PathFollow();
+        //PathFollow();
 
     }
 }
