@@ -9,6 +9,7 @@ public class Player : Humanoid {
     [SerializeField] private float camSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
+
     private int count = 0;
     private Vector3 targetPos; 
     int input()
@@ -19,10 +20,11 @@ public class Player : Humanoid {
     // Update is called once per frame
     void Update()
     { 
+        base.Update(); 
         Move(input());
-        if (Input.GetKeyDown(KeyCode.Space)) Jump();
+        if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0)) Pew();
-    }
+    } 
     void Pew()
     {
         count++;
