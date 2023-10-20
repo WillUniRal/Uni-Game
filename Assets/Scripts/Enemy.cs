@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : Humanoid
 {
 
-    private Transform target; // The target (player, waypoint, etc.) for path following
+    [SerializeField] private Transform target; // The target (player, waypoint, etc.) for path following
     private float jumpCooldownTimer = 0.0f; // Cooldown timer for jumping
     private float jumpIntervalMin = 1.0f; // Minimum time interval for jumping
     private float jumpIntervalMax = 5.0f; // Maximum time interval for jumping
@@ -18,13 +18,12 @@ public class Enemy : Humanoid
     }
 
     // Override the Update method to implement enemy behavior
-    protected override void Update()
+    private new void Update()
     {
         base.Update(); // Call the base class Update method
 
         if (target != null)
         {
-            {
             // Calculate direction to the target
             Vector3 direction = (target.position - transform.position).normalized;
 
@@ -41,6 +40,7 @@ public class Enemy : Humanoid
             // Check for obstacles in front
             if (IsObstacleInFront())
             {
+                Debug.Log("get out the way!");
                 Jump(); // Jump to clear the obstacle
             }
 
@@ -67,7 +67,7 @@ public class Enemy : Humanoid
             jumpCooldownTimer = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax); // Set a new jump cooldown timer
         }
     }
-}
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +75,4 @@ public class Enemy : Humanoid
         
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
 }
