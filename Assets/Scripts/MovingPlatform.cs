@@ -97,58 +97,62 @@ public class MovingPlatform : MonoBehaviour
             }
             else return;
         }
+        Vector3 midpoint = points[0].transform.position - points[1].transform.position;
 
-        Vector2 pathXZ = Vector2.MoveTowards(
-            new Vector2(transform.position.x, transform.position.y),
+        Vector2 pathXY = Vector2.MoveTowards(
+            new Vector2(transform.position.x, startPos.y),
             new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
             wayPoints[lastPos].speed * Time.deltaTime
         );
-        Debug.Log(wayPoints[thisPos].pos());
+        //Debug.Log(wayPoints[thisPos].pos());
 
         startPos = new Vector3(
-            pathXZ.x,
-            pathXZ.y,
+            pathXY.x,
+            pathXY.y,
             transform.position.z //Mathf.MoveTowards(startPos.z, wayPoints[thisPos].pos().z, wayPoints[lastPos].speed * Time.deltaTime)
          );
         Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime);
-        /*
+        Debug.Log("Update: " + pathXY);
         transform.position = new Vector3(
             startPos.x,
-            startPos.y,
+            transform.position.y,
             transform.position.z
         );
-        */
-        Vector3 midpoint = points[0].transform.position - points[1].transform.position;
-        
+
+
         //if at the end of path
-        if (Vector3.Distance(startPos, wayPoints[thisPos].pos()) < wayPoints[lastPos].speed * Time.deltaTime)
+        if (Vector2.Distance(new (startPos.x, startPos.y), new(wayPoints[thisPos].pos().x,wayPoints[thisPos].pos().y)) < wayPoints[lastPos].speed * Time.deltaTime)
         {
+            //NEXT WAYPOINT
             pathPos++;
             wait = true;
         }
+        //Debug.Log("Distance: " + Vector2.Distance(new(startPos.x, startPos.y), new(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y)) + " Requirement: " + wayPoints[lastPos].speed * Time.deltaTime);
 
     }
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         int thisPos = (pathPos + 1) % wayPoints.Length;
         int lastPos = pathPos % wayPoints.Length;
 
-        if (collision.gameObject.GetComponent<Rigidbody2D>() && collision.gameObject.GetComponent<Player>() && !wait)
+        if (collision.gameObject.GetComponent<Rigidbody2D>() && collision.gameObject.GetComponent<Humanoid>() && !wait)
         {
-            Vector2 pathXZ = new Vector2(transform.position.x, transform.position.y) - Vector2.MoveTowards(
-                new Vector2(transform.position.x, transform.position.y),
+            Debug.Log("Player found, " + new Vector2(transform.position.x, startPos.y));
+            Vector2 pathXY = Vector2.MoveTowards(
+                new Vector2(transform.position.x, startPos.y),
                 new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
                 wayPoints[lastPos].speed * Time.deltaTime
             );
+            Debug.Log(pathXY + " d: " + wayPoints[lastPos].speed * Time.fixedDeltaTime);
 
             collision.transform.position += new Vector3(
-                -1 * pathXZ.x,
+                pathXY.x,
                 0f,
                 0f
             );
         }
 
-    }
+    } 
 
     public void InstantiateConnectors()
     {
@@ -234,7 +238,7 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //PathFollow();
+        PathFollow();
 
     }
 }
