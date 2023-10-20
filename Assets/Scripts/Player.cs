@@ -18,7 +18,7 @@ public class Player : Humanoid {
     }
 
     // Update is called once per frame
-    void Update()
+    private new void Update()
     { 
         base.Update(); 
         Move(input());
