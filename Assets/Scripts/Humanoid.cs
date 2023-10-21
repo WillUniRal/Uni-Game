@@ -10,6 +10,8 @@ public class Humanoid : MonoBehaviour
     public float jumpForce = 10f;
     [HideInInspector] public GroundCheck gc;
 
+    public int playerHP = 100; // Player HP with an initial value of 100
+
     private bool JumpCooldown;
     private float JumpCooldownTime = 0f;
 

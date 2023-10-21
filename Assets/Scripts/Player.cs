@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System; 
+using System;
 
-public class Player : Humanoid {
-
+public class Player : Humanoid
+{
     [SerializeField] private Camera cam;
     [SerializeField] private float camSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
 
     private int count = 0;
-    private Vector3 targetPos; 
+    private Vector3 targetPos;
+
+    // Add player HP field with an initial value of 100
+    private int playerHP = 100;
+
     int input()
     {
         return Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
@@ -19,19 +23,37 @@ public class Player : Humanoid {
 
     // Update is called once per frame
     private new void Update()
-    { 
-        base.Update(); 
+    {
+        base.Update();
         Move(input());
         if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0)) Pew();
-    } 
+    }
+
     void Pew()
     {
         count++;
         GameObject _bullet = Instantiate(bullet, poslol);
-        _bullet.name = "Bullet ("+count+")";
-
+        _bullet.name = "Bullet (" + count + ")";
     }
+
+    // Modify the TakeDamage method to update player HP
+    public void TakeDamage(int damage)
+    {
+        playerHP -= damage;
+        if (playerHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    // Check if the player is dead and print "You Died"
+    private void Die()
+    {
+        Debug.Log("You Died");
+        // You can add more game over logic here, such as restarting the level or ending the game.
+    }
+
     private void FixedUpdate()
     {
         targetPos = new Vector3(
