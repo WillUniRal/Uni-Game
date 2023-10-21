@@ -137,16 +137,14 @@ public class MovingPlatform : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Rigidbody2D>() && collision.gameObject.GetComponent<Humanoid>() && !wait)
         {
-            Debug.Log("Player found, " + new Vector2(transform.position.x, startPos.y));
             Vector2 pathXY = Vector2.MoveTowards(
                 new Vector2(transform.position.x, startPos.y),
                 new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
                 wayPoints[lastPos].speed * Time.deltaTime
             );
-            Debug.Log(pathXY + " d: " + wayPoints[lastPos].speed * Time.fixedDeltaTime);
 
-            collision.transform.position += new Vector3(
-                pathXY.x,
+            collision.transform.position -= new Vector3(
+                transform.position.x - pathXY.x,
                 0f,
                 0f
             );
