@@ -4,38 +4,6 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [System.Serializable]
-    private class WayPoints
-    {
-        public Transform wayPointPosition;
-        public float speed;
-        public float waitTime;
-
-        private Vector3 defaultPos;
-
-        [HideInInspector]
-        public WayPoints(Vector3 defaultt, float spd, float wait)
-        {
-            defaultPos = defaultt;
-            speed = spd;
-            waitTime = wait;
-        }
-        [HideInInspector]
-        public WayPoints() { }
-        [HideInInspector]
-        public Vector3 pos()
-        {
-            try
-            {
-                return wayPointPosition.position;
-            }
-            catch (System.NullReferenceException)
-            {
-                return defaultPos;
-            }
-        }
-
-    }
     [Header("Path")]
     [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
 
@@ -70,9 +38,6 @@ public class MovingPlatform : MonoBehaviour
 
         if (wayPoints.Length == 0) wayPoints = new WayPoints[1];
         if (wayPoints[0].wayPointPosition == null) wayPoints[0] = new WayPoints(realSPos, wayPoints[0].speed, wayPoints[0].waitTime);
-
-        //Debug.Log(wayPoints[0].pos());
-        //Debug.Log(realSPos);
     }
     private Vector3[] CreateOffsets(float o, float y)
     {
@@ -97,22 +62,19 @@ public class MovingPlatform : MonoBehaviour
             }
             else return;
         }
-        Vector3 midpoint = points[0].transform.position - points[1].transform.position;
 
         Vector2 pathXY = Vector2.MoveTowards(
             new Vector2(transform.position.x, startPos.y),
             new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
             wayPoints[lastPos].speed * Time.deltaTime
         );
-        //Debug.Log(wayPoints[thisPos].pos());
 
         startPos = new Vector3(
             pathXY.x,
             pathXY.y,
             transform.position.z //Mathf.MoveTowards(startPos.z, wayPoints[thisPos].pos().z, wayPoints[lastPos].speed * Time.deltaTime)
          );
-        Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime);
-        Debug.Log("Update: " + pathXY);
+        Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime); 
         transform.position = new Vector3(
             startPos.x,
             transform.position.y,
@@ -127,22 +89,21 @@ public class MovingPlatform : MonoBehaviour
             pathPos++;
             wait = true;
         }
-        //Debug.Log("Distance: " + Vector2.Distance(new(startPos.x, startPos.y), new(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y)) + " Requirement: " + wayPoints[lastPos].speed * Time.deltaTime);
-
-    }
+    } 
     private void OnCollisionStay2D(Collision2D collision)
     {
         int thisPos = (pathPos + 1) % wayPoints.Length;
         int lastPos = pathPos % wayPoints.Length;
-
+        //if colliding with the player
         if (collision.gameObject.GetComponent<Rigidbody2D>() && collision.gameObject.GetComponent<Humanoid>() && !wait)
         {
+            //take its movement path
             Vector2 pathXY = Vector2.MoveTowards(
                 new Vector2(transform.position.x, startPos.y),
                 new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
                 wayPoints[lastPos].speed * Time.deltaTime
             );
-
+            //get the entities poition and move it along with the platform
             collision.transform.position -= new Vector3(
                 transform.position.x - pathXY.x,
                 0f,
@@ -151,6 +112,7 @@ public class MovingPlatform : MonoBehaviour
         }
 
     } 
+    
 
     public void InstantiateConnectors()
     {
@@ -237,6 +199,5 @@ public class MovingPlatform : MonoBehaviour
     void Update()
     {
         PathFollow();
-
     }
 }

@@ -248,9 +248,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  speed: 12
+  speed: 9
   jumpForce: 360
   gc: {fileID: 0}
+  HP: 100
   cam: {fileID: 519420031}
   camSpeed: 2.34
   bullet: {fileID: 3547795298541832027, guid: ec9fe33a33a1bff43b542b2086e522a2, type: 3}
@@ -429,7 +430,11 @@ MonoBehaviour:
   speed: 3
   jumpForce: 360
   gc: {fileID: 0}
+  HP: 100
   target: {fileID: 1479469447}
+  attackDamage: 10
+  attackCooldown: 2
+  weapon: {fileID: 0}
 --- !u!50 &79094491
 Rigidbody2D:
   serializedVersion: 4
@@ -587,7 +592,7 @@ GameObject:
   - component: {fileID: 247139006}
   - component: {fileID: 247139005}
   m_Layer: 0
-  m_Name: Square
+  m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,11 +752,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPoints:
   - wayPointPosition: {fileID: 695351106}
-    speed: 3.83
-    waitTime: 0
+    speed: 3.4
+    waitTime: 3.1
   - wayPointPosition: {fileID: 855955120}
-    speed: 2.9
-    waitTime: 0
+    speed: 7.04
+    waitTime: 3
   height: 2.33
   frequency: 0.7
   damping: 0.1
@@ -803,37 +808,6 @@ SpringJoint2D:
   m_Distance: 4.08
   m_DampingRatio: 0.1
   m_Frequency: 0.7
---- !u!1 &352547916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 352547917}
-  m_Layer: 0
-  m_Name: pltWayPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &352547917
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352547916}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.17, y: 2.38, z: 0}
-  m_LocalScale: {x: 7.2202, y: 0.57210636, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,7 +1699,6 @@ SceneRoots:
   - {fileID: 695351106}
   - {fileID: 855955120}
   - {fileID: 247138997}
-  - {fileID: 352547917}
   - {fileID: 1895921177}
   - {fileID: 1470777275}
   - {fileID: 79094494}

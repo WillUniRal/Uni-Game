@@ -13,9 +13,6 @@ public class Player : Humanoid
     private int count = 0;
     private Vector3 targetPos;
 
-    // Add player HP field with an initial value of 100
-    private int playerHP = 100;
-
     int input()
     {
         return Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
@@ -40,8 +37,8 @@ public class Player : Humanoid
     // Modify the TakeDamage method to update player HP
     public void TakeDamage(int damage)
     {
-        playerHP -= damage;
-        if (playerHP <= 0)
+        HP -= damage;
+        if (HP <= 0)
         {
             Die();
         }
