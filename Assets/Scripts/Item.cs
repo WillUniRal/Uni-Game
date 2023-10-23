@@ -37,7 +37,7 @@ public class Item : MonoBehaviour
                 case ItemType.spellOfInvisiblity:
                     break;
             }
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
