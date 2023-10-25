@@ -26,29 +26,12 @@ public class Player : Humanoid
         if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0)) Pew();
     }
-
     void Pew()
     {
         count++;
         GameObject _bullet = Instantiate(bullet, poslol);
         _bullet.name = "Bullet (" + count + ")";
-
-        Vector3 bulletVelocity = new Vector3(10, 0, 0); // Adjust the velocity as needed.
-
-        // Get the Rigidbody component of the bullet.
-        Rigidbody rb = _bullet.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            // Set the velocity of the bullet using the bulletVelocity vector.
-            rb.velocity = bulletVelocity;
-        }
-        else
-        {
-            Debug.LogWarning("Rigidbody component not found on the bullet.");
-        }
     }
-
     // Modify the TakeDamage method to update player HP
     public void TakeDamage(int damage)
     {
