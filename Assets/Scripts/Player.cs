@@ -31,6 +31,9 @@ public class Player : Humanoid
         count++;
         GameObject _bullet = Instantiate(bullet, poslol);
         _bullet.name = "Bullet (" + count + ")";
+        Vector3 bulletVelocity = new Vector3(10, 0, 0);
+        Rigidbody2D rb = _bullet.GetComponent<Rigidbody2D>();
+        rb.velocity = bulletVelocity;
     }
     // Modify the TakeDamage method to update player HP
     public void TakeDamage(int damage)
