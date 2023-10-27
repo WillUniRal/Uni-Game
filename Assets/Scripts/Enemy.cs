@@ -63,11 +63,15 @@ public class Enemy : Humanoid
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0)
             {
-                Debug.Log("SHOOT");
                 Pew(left);
-                timeLeft = 3.0f;
+                timeLeft = 2.0f;
             }
         }
+    }
+
+    float find_power(int number)
+    {
+        return Mathf.Sqrt(number * number);
     }
 
     void Pew(int direction)
