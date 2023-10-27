@@ -28,12 +28,16 @@ public class Enemy : Humanoid
     {
         target = newTarget;
     }
-
+    private Vector3 startScale;
+    private void Start()
+    {
+        startScale = transform.localScale;
+    }
 
     // Override the Update method to implement enemy behavior
     private new void Update()
     {
-        Debug.Log("Updated");
+        //Debug.Log("Updated");
         base.Update();
 
         if (target != null)
@@ -71,9 +75,13 @@ public class Enemy : Humanoid
 
         // Move left or right using the base class's "Move" method
         Move(Math.Sign(direction.x));
-
-        Debug.Log(Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) + "<" + Time.deltaTime * speed);
-        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed)
+        transform.localScale = new Vector3(
+            startScale.x * Math.Sign(direction.x),
+            transform.localScale.y,
+            transform.localScale.z
+        );
+        
+        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed * 4)
             wayPointPos++;
 
     }
