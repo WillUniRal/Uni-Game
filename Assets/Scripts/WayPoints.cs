@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class WayPoints
+public class WayPoints 
 {
     public Transform wayPointPosition;
     public float speed;

@@ -1,3 +1,5 @@
+using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +12,7 @@ public class Enemy : Humanoid
     private float jumpIntervalMax = 5.0f; // Maximum time interval for jumping
     private float obstacleDetectionDistance = 1.0f; // Distance to detect obstacles
 
+    [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
     [SerializeField] private int attackDamage = 10; // Damage dealt by the enemy (10 HP)
     [SerializeField] private float attackCooldown = 2.0f; // Cooldown between attacks (2 seconds)
     private float lastAttackTime = 0.0f; // Time of the last attack
@@ -29,19 +32,7 @@ public class Enemy : Humanoid
 
         if (target != null)
         {
-            // Calculate direction to the target
-            Vector3 direction = (target.position - transform.position).normalized;
-
-            // Move left or right using the base class's "Move" method
-            if (direction.x < 0)
-            {
-                Move(-1);
-            }
-            else if (direction.x > 0)
-            {
-                Move(1);
-            }
-
+            FollowPath();
             // Check for obstacles in front
             if (IsObstacleInFront())
             {
@@ -55,6 +46,25 @@ public class Enemy : Humanoid
             Attack();
         }
     }
+    private int wayPointPos = 0;
+    private void FollowPath()
+    {
+        int thisPos = (wayPointPos + 1) % wayPoints.Length;
+        //int lastPos = wayPointPos % wayPoints.Length;
+
+        // Calculate direction to the target
+        Vector3 directionNotNormalized = wayPoints[thisPos].pos() - transform.position;
+        Vector3 direction = directionNotNormalized.normalized;
+
+        // Move left or right using the base class's "Move" method
+        Move(Math.Sign(direction.x));
+
+        Debug.Log(Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) + "<" + Time.deltaTime * speed);
+        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed)
+            wayPointPos++;
+
+    }
+    
 
     private bool IsObstacleInFront()
     {
@@ -71,7 +81,7 @@ public class Enemy : Humanoid
         if (Time.time >= jumpCooldownTimer)
         {
             Jump(); // Perform a jump
-            jumpCooldownTimer = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax); // Set a new jump cooldown timer
+            jumpCooldownTimer = Time.time + UnityEngine.Random.Range(jumpIntervalMin, jumpIntervalMax); // Set a new jump cooldown timer
         }
     }
 
