@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Enemy : Humanoid
 {
     [SerializeField] private Transform target; // The target (player, waypoint, etc.) for path following
@@ -15,6 +16,7 @@ public class Enemy : Humanoid
     [SerializeField] private GameObject bullet;
     private float lastAttackTime = 0.0f; // Time of the last attack
     int count = 0;
+    public float timeLeft = 3.0f;
 
     [SerializeField] private GameObject weapon; // Reference to the enemy's weapon
 
@@ -24,12 +26,16 @@ public class Enemy : Humanoid
         target = newTarget;
     }
 
+
     // Override the Update method to implement enemy behavior
     private new void Update()
     {
+        Debug.Log("Updated");
         base.Update();
+
         if (target != null)
         {
+
             // Calculate direction to the target
             Vector3 direction = (target.position - transform.position).normalized;
 
@@ -37,7 +43,6 @@ public class Enemy : Humanoid
             if (direction.x < 0)
             {
                 Move(-1);
-                Pew(left);
             }
             else if (direction.x > 0)
             {
@@ -55,6 +60,13 @@ public class Enemy : Humanoid
 
             // Attack the player
             Attack();
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+            {
+                Debug.Log("SHOOT");
+                Pew(left);
+                timeLeft = 3.0f;
+            }
         }
     }
 
