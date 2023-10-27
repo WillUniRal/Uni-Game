@@ -604,6 +604,8 @@ MonoBehaviour:
     waitTime: 0
   attackDamage: 10
   attackCooldown: 2
+  bullet: {fileID: 3547795298541832027, guid: ec9fe33a33a1bff43b542b2086e522a2, type: 3}
+  timeLeft: 3
   weapon: {fileID: 0}
 --- !u!50 &79094491
 Rigidbody2D:
@@ -1003,7 +1005,7 @@ Transform:
   m_GameObject: {fileID: 330592701}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.66, y: -1.03, z: -0.5958248}
+  m_LocalPosition: {x: 26.3, y: -1.03, z: -0.5958248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

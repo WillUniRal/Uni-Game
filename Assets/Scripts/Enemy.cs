@@ -52,6 +52,11 @@ public class Enemy : Humanoid
             Attack();
             
             timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+            {
+                Pew(left);
+                timeLeft = 2.0f;
+            }
         }
     }
     private int wayPointPos = 0;
@@ -74,6 +79,10 @@ public class Enemy : Humanoid
     }
     
 
+    float find_power(int number)
+    {
+        return Mathf.Sqrt(number * number);
+    }
 
     void Pew(int direction)
     {
