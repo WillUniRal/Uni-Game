@@ -1,7 +1,9 @@
+using System;
+using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
+
 
 public class Player : Humanoid
 {
@@ -12,6 +14,12 @@ public class Player : Humanoid
 
     private int count = 0;
     private Vector3 targetPos;
+
+    [SerializeField] private float speedBoostMultiplier = 2f; // Speed increase multiplier
+    private float speedBoostDuration = 0.0f; // Duration of the speed boost
+    private GameObject speedPotion; // Reference to the Speed Potion object
+    private float baseSpeed;
+    private float multiplier;
 
     int input()
     {
@@ -25,7 +33,30 @@ public class Player : Humanoid
         Move(input());
         if (Input.GetKey(KeyCode.Space)) Jump();
         if (Input.GetMouseButtonDown(0)) Pew();
+
+        // Handle speed boost
+        if (speedBoostDuration > 0.0f)
+        {
+            // Apply speed boost
+            speed = baseSpeed * speedBoostMultiplier;
+            speedBoostDuration -= Time.deltaTime;
+
+            // Check if speed boost has ended
+            if (speedBoostDuration <= 0.0f)
+            {
+                // Restore normal speed
+                speed = baseSpeed;
+            }
+        }
     }
+
+    // Apply speed boost to the player
+    public void ApplySpeedBoost(float duration)
+    {
+        baseSpeed = speed;
+        speedBoostDuration = duration;
+    }
+
     void Pew()
     {
         count++;
@@ -35,6 +66,7 @@ public class Player : Humanoid
         Rigidbody2D rb = _bullet.GetComponent<Rigidbody2D>();
         rb.velocity = bulletVelocity;
     }
+
     // Modify the TakeDamage method to update player HP
     public void TakeDamage(int damage)
     {
@@ -66,4 +98,6 @@ public class Player : Humanoid
             cam.transform.position.z
         );
     }
+
+    
 }
