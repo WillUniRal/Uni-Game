@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
+
 public class Enemy : Humanoid
 {
     [SerializeField] private Transform target; // The target (player, waypoint, etc.) for path following
@@ -13,7 +15,6 @@ public class Enemy : Humanoid
     private float jumpIntervalMax = 5.0f; // Maximum time interval for jumping
     private float obstacleDetectionDistance = 1.0f; // Distance to detect obstacles
     [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
-    int left = -10;
     [SerializeField] private int attackDamage = 10; // Damage dealt by the enemy (10 HP)
     [SerializeField] private float attackCooldown = 2.0f; // Cooldown between attacks (2 seconds)
     [SerializeField] private GameObject bullet;
@@ -39,10 +40,8 @@ public class Enemy : Humanoid
             FollowPath();
             // Check for obstacles in front
             if (IsObstacleInFront())
-            {
-                Jump(); // Jump to clear the obstacle
-            }
-
+                Jump();
+           
             // Handle jumping at random intervals
             HandleJumping();
 
@@ -52,7 +51,7 @@ public class Enemy : Humanoid
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0)
             {
-                Pew(left);
+                Pew();
                 timeLeft = 2.0f;
             }
         }
@@ -70,23 +69,22 @@ public class Enemy : Humanoid
         // Move left or right using the base class's "Move" method
         Move(Math.Sign(direction.x));
 
-        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed * 4)
-            wayPointPos++;
-
-    }
-    
-
-    float find_power(int number)
-    {
-        return Mathf.Sqrt(number * number);
+        if (Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) < Time.deltaTime * speed * 4) wayPointPos++;
     }
 
-    void Pew(int direction)
+    void Pew()
     {
+        float direction = Math.Sign(transform.localScale.x);
         count++;
-        GameObject _bullet = Instantiate(bullet, transform);
+        GameObject _bullet = Instantiate(bullet);
+        _bullet.transform.position = transform.position;
+        _bullet.transform.position -= new Vector3(
+            -direction*0.2f,
+            0f,
+            0f
+        );
         _bullet.name = "Bullet (" + count + ")";
-        Vector3 bulletVelocity = new Vector3(direction, 0, 0);
+        Vector3 bulletVelocity = new Vector3(direction*10, 0, 0);
         Rigidbody2D rb = _bullet.GetComponent<Rigidbody2D>();
         rb.velocity = bulletVelocity;
     }
@@ -123,7 +121,6 @@ public class Enemy : Humanoid
                 // For example, weapon.SetActive(true);
                 target.GetComponent<Player>().TakeDamage(attackDamage);
             }
-
             lastAttackTime = Time.time; // Update the last attack time
         }
     }

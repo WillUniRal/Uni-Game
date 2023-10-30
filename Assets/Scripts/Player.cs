@@ -31,7 +31,8 @@ public class Player : Humanoid
     {
         base.Update();
         Move(input());
-        if (Input.GetKey(KeyCode.Space)) Jump();
+        if (CheckForASCIIKey(' ')) Jump();
+
         if (Input.GetMouseButtonDown(0)) Pew();
 
         // Handle speed boost
@@ -76,7 +77,20 @@ public class Player : Humanoid
             Die();
         }
     }
+    bool CheckForASCIIKey(int asciiValue)
+    {
+        if (Input.inputString.Length > 0)
+        {
+            char pressedKey = Input.inputString[0];
+            int pressedAscii = (int)pressedKey;
 
+            if (pressedAscii == asciiValue)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     // Check if the player is dead and print "You Died"
     private void Die()
     {
