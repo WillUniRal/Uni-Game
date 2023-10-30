@@ -33,6 +33,7 @@ public class Item : MonoBehaviour
                 case ItemType.spellOfJump:
                     break;
                 case ItemType.spellOfSpeed:
+                    player.ApplySpeedBoost(5f);
                     break;
                 case ItemType.spellOfInvisiblity:
                     break;
