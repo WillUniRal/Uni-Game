@@ -27,14 +27,12 @@ public class Enemy : Humanoid
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
-    }
-
-
+    } 
     // Override the Update method to implement enemy behavior
     private new void Update()
     {
-        Debug.Log("Updated");
-        base.Update();
+        //Debug.Log("Updated");
+        base.Update(); //Call base update
 
         if (target != null)
         {
@@ -72,8 +70,7 @@ public class Enemy : Humanoid
         // Move left or right using the base class's "Move" method
         Move(Math.Sign(direction.x));
 
-        Debug.Log(Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) + "<" + Time.deltaTime * speed);
-        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed)
+        if (Math.Sqrt(Math.Pow(directionNotNormalized.x,2)) < Time.deltaTime * speed * 4)
             wayPointPos++;
 
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Humanoid : MonoBehaviour
 {
@@ -20,13 +21,23 @@ public class Humanoid : MonoBehaviour
         gc = gameObject.GetComponentInChildren<GroundCheck>();
     }
     public void Move(int amount) {
-        //Debug.Log(speed * amount);
         rb.velocity = new (speed * amount,rb.velocity.y);
+        if (amount == 0) return;
+        transform.localScale = new Vector3(
+            startScale.x * Math.Sign(amount),
+            transform.localScale.y,
+            transform.localScale.z
+        );
     }
     public void Jump() {
         if (!Grounded() || JumpCooldown) return;
         rb.AddForceY(jumpForce);
         JumpCooldown = true;
+    }
+    public Vector3 startScale;
+    private void Start()
+    {
+        startScale = transform.localScale;
     }
     public void Update()
     {
