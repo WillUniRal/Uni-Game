@@ -35,7 +35,7 @@ public class Humanoid : MonoBehaviour
         JumpCooldown = true;
     }
     public Vector3 startScale;
-    private void Start()
+    public void Start()
     {
         startScale = transform.localScale;
     }

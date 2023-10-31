@@ -12,7 +12,6 @@ public class Player : Humanoid
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
 
-    private int count = 0;
     private Vector3 targetPos;
 
     [SerializeField] private float speedBoostMultiplier = 2f; // Speed increase multiplier
@@ -25,15 +24,18 @@ public class Player : Humanoid
     {
         return Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
     }
-
+    private GameObject deathstatus;
+    private new void Start()
+    {
+        base.Start();
+        deathstatus = cam.transform.GetChild(0).gameObject;
+    }
     // Update is called once per frame
     private void Update()
     {
         HumanoidUpdate();
         Move(input());
         if (CheckForASCIIKey(' ')) Jump();
-
-        if (Input.GetMouseButtonDown(0)) Pew();
 
         // Handle speed boost
         if (speedBoostDuration > 0.0f)
@@ -56,16 +58,6 @@ public class Player : Humanoid
     {
         baseSpeed = speed;
         speedBoostDuration = duration;
-    }
-
-    void Pew()
-    {
-        count++;
-        GameObject _bullet = Instantiate(bullet, poslol);
-        _bullet.name = "Bullet (" + count + ")";
-        Vector3 bulletVelocity = new Vector3(10, 0, 0);
-        Rigidbody2D rb = _bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = bulletVelocity;
     }
 
     // Modify the TakeDamage method to update player HP
@@ -94,6 +86,7 @@ public class Player : Humanoid
     // Check if the player is dead and print "You Died"
     private void Die()
     {
+        deathstatus.SetActive(true);
         Debug.Log("You Died");
         // You can add more game over logic here, such as restarting the level or ending the game.
     }
