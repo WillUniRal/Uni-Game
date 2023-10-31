@@ -29,8 +29,7 @@ public class Enemy : Humanoid
     } 
     // Override the Update method to implement enemy behavior
     public void EnemyUpdate()
-    {
-        //Debug.Log("Updated");
+    { 
         HumanoidUpdate(); //Call base update 
 
         Debug.Log("Enemy!");

@@ -77,14 +77,13 @@ public class MovingPlatform : MonoBehaviour
             pathXY.y,
             transform.position.z //z is not needed since its a 2D game
          );
-        //This draws a redline in the inspector that shows
+        //This draws a redline in the inspector that shows where the current pos in the path is
         Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime); 
         transform.position = new Vector3(
             startPos.x,
             transform.position.y,
             transform.position.z
         );
-
 
         //if at the end of path
         if (Vector2.Distance(new (startPos.x, startPos.y), new(wayPoints[thisPos].pos().x,wayPoints[thisPos].pos().y)) < wayPoints[lastPos].speed * Time.deltaTime)
@@ -122,6 +121,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (!Application.isPlaying) startPos = transform.position;
 
+        //create 2 corners 
         connectors = CreateOffsets(connectorOffset, transform.position.y + height);
         connections = CreateOffsets(connectionOffset, connectionHeightOffset)/*- height*/;
 
@@ -139,11 +139,14 @@ public class MovingPlatform : MonoBehaviour
             Rigidbody2D rb = points[i].AddComponent<Rigidbody2D>();
             rb.isKinematic = true;
 
-            joints[i] = gameObject.AddComponent<SpringJoint2D>();
+            //add spring joints for both corners
+            joints[i] = gameObject.AddComponent<SpringJoint2D>(); 
+            //these settings work well for what im trying to do
             joints[i].autoConfigureConnectedAnchor = false;
             joints[i].autoConfigureDistance = false;
             joints[i].connectedBody = rb;
             //joints[i].connectedAnchor = new (newObj.transform.position.x, newObj.transform.position.y);
+            //set the settings to variables that can be modified in inspector so they you can experiment easily
             joints[i].frequency = frequency;
             joints[i].dampingRatio = damping;
             joints[i].distance = height;
@@ -179,7 +182,7 @@ public class MovingPlatform : MonoBehaviour
         SetConnectors();
         for (int i = 0; i < points.Length; i++)
         {
-
+            //this draws what the platform is being held up by in inspector
             int firstPoint = (i) % 2;
             int secoundPoint = (i + 1) % 2;
             Gizmos.color = Color.cyan;
