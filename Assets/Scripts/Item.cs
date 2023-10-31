@@ -22,6 +22,7 @@ public class Item : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
+            if (player == null) return;
             switch (type)
             {
                 case ItemType.gun:
@@ -39,6 +40,7 @@ public class Item : MonoBehaviour
                     break;
             }
             Destroy(gameObject);
+            Destroy(this);
         }
     }
 

@@ -49,9 +49,11 @@ public class MovingPlatform : MonoBehaviour
     }
     private void PathFollow()
     { 
+        //Get the current waypoint position, If there are two waypoints it will count 0,1,0,1 if there are 3 it will count 0,1,2,0,1,2
         int thisPos = (pathPos + 1) % wayPoints.Length;
         int lastPos = pathPos % wayPoints.Length;
 
+        //when it gets to the next waypoint it will wait until the waitTime has completed
         if (wait)
         {
             waitTime += Time.deltaTime;
@@ -63,6 +65,7 @@ public class MovingPlatform : MonoBehaviour
             else return;
         }
 
+        //This function does a lot of the maths for me, it calculates where the platform needs to be at next
         Vector2 pathXY = Vector2.MoveTowards(
             new Vector2(transform.position.x, startPos.y),
             new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().y),
@@ -72,8 +75,9 @@ public class MovingPlatform : MonoBehaviour
         startPos = new Vector3(
             pathXY.x,
             pathXY.y,
-            transform.position.z //Mathf.MoveTowards(startPos.z, wayPoints[thisPos].pos().z, wayPoints[lastPos].speed * Time.deltaTime)
+            transform.position.z //z is not needed since its a 2D game
          );
+        //This draws a redline in the inspector that shows
         Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red, Time.deltaTime); 
         transform.position = new Vector3(
             startPos.x,

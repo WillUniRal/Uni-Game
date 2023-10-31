@@ -39,7 +39,7 @@ public class Humanoid : MonoBehaviour
     {
         startScale = transform.localScale;
     }
-    public void Update()
+    public void HumanoidUpdate()
     {
         if (!JumpCooldown) return;
         //Debug.Log(JumpCooldownTime);

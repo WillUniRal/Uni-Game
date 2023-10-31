@@ -27,9 +27,9 @@ public class Player : Humanoid
     }
 
     // Update is called once per frame
-    private new void Update()
+    private void Update()
     {
-        base.Update();
+        HumanoidUpdate();
         Move(input());
         if (CheckForASCIIKey(' ')) Jump();
 
