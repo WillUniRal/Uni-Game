@@ -257,6 +257,7 @@ MonoBehaviour:
   camSpeed: 2.34
   bullet: {fileID: 3547795298541832027, guid: ec9fe33a33a1bff43b542b2086e522a2, type: 3}
   poslol: {fileID: 695351106}
+  speedBoostMultiplier: 2
 --- !u!61 &24996655
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -570,7 +571,7 @@ GameObject:
   - component: {fileID: 79094493}
   - component: {fileID: 79094492}
   - component: {fileID: 79094491}
-  - component: {fileID: 79094490}
+  - component: {fileID: 79094495}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
@@ -578,37 +579,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &79094490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79094489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d09aa471e71d49d488f9e0c8dcd1cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  speed: 3
-  jumpForce: 360
-  gc: {fileID: 0}
-  HP: 100
-  startScale: {x: 0, y: 0, z: 0}
-  target: {fileID: 1479469447}
-  wayPoints:
-  - wayPointPosition: {fileID: 1479469447}
-    speed: 0
-    waitTime: 0
-  - wayPointPosition: {fileID: 330592702}
-    speed: 0
-    waitTime: 0
-  attackDamage: 10
-  attackCooldown: 2
-  bullet: {fileID: 3547795298541832027, guid: ec9fe33a33a1bff43b542b2086e522a2, type: 3}
-  timeLeft: 3
-  weapon: {fileID: 0}
 --- !u!50 &79094491
 Rigidbody2D:
   serializedVersion: 4
@@ -750,6 +720,37 @@ Transform:
   - {fileID: 1937445665}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79094495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79094489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da71a099a9bf0148bef27fedfda69f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  speed: 3
+  jumpForce: 360
+  gc: {fileID: 0}
+  HP: 100
+  startScale: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  wayPoints:
+  - wayPointPosition: {fileID: 1479469447}
+    speed: 0
+    waitTime: 0
+  - wayPointPosition: {fileID: 330592702}
+    speed: 0
+    waitTime: 0
+  attackDamage: 10
+  attackCooldown: 2
+  bullet: {fileID: 3547795298541832027, guid: ec9fe33a33a1bff43b542b2086e522a2, type: 3}
+  weapon: {fileID: 0}
+  timeLeft: 3
 --- !u!1 &247138991
 GameObject:
   m_ObjectHideFlags: 0

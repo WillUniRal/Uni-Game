@@ -6,8 +6,8 @@ public class FireballSkele : Enemy
 {
 
     // Update is called once per frame
-    private new void Update() {
-        base.Update(); //call base enemy update
+    private void Update() {
+        EnemyUpdate(); //call base enemy update
         
     }
 }
