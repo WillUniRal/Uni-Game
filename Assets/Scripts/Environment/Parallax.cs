@@ -8,6 +8,7 @@ public class Parallax : MonoBehaviour
     [System.Serializable]
     private class Background
     {
+        
         private float xBound;
         private float yBound;
 
@@ -16,8 +17,9 @@ public class Parallax : MonoBehaviour
 
         private Vector3 camOffset  = Vector3.zero;
         public void SetBounds()
-        {
+        {   
             Sprite sprite = bg.GetComponent<SpriteRenderer>().sprite;
+            if (sprite == null) return;
             xBound = sprite.texture.width / sprite.pixelsPerUnit;
             yBound = sprite.texture.height / sprite.pixelsPerUnit;
         }
