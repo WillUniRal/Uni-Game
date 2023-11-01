@@ -10,17 +10,13 @@ public class WayPoints
     public float waitTime; //how long it will wait at that pos
 
     private Vector3 defaultPos;
-
-    [HideInInspector]
+     
     public WayPoints(Vector3 defaultt, float spd, float wait)
     {
         defaultPos = defaultt;
         speed = spd;
         waitTime = wait;
-    }
-    [HideInInspector]
-    public WayPoints() { }
-    [HideInInspector]
+    } 
     public Vector3 pos() //just looks better than typing wayPoints[i].wayPointPosition.position (wayPoints[i].pos())
     {
         try
