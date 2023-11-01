@@ -17,7 +17,7 @@ public class Player : Humanoid
     private GameObject speedPotion; // Reference to the Speed Potion object
     private float baseSpeed;
     private float multiplier;
-    private readonly float camSpeed;
+    [SerializeField] private float camSpeed;
 
     int input()
     {
@@ -113,7 +113,7 @@ public class Player : Humanoid
     }
 
     private void FixedUpdate()
-    {
+    { 
         targetPos = new Vector3(
             gameObject.transform.position.x,
             gameObject.transform.position.y,

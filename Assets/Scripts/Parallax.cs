@@ -8,13 +8,19 @@ public class Parallax : MonoBehaviour
     [System.Serializable]
     private class Background
     {
-        public float xBound = 128f / 16f; // image resolution / unity units
-        public float yBound = 64f / 16f;  // image resolution / unity units
+        private float xBound;
+        private float yBound;
 
         public float speed;
         public GameObject bg;
 
         private Vector3 camOffset  = Vector3.zero;
+        public void SetBounds()
+        {
+            Sprite sprite = bg.GetComponent<SpriteRenderer>().sprite;
+            xBound = sprite.texture.width / sprite.pixelsPerUnit;
+            yBound = sprite.texture.height / sprite.pixelsPerUnit;
+        }
         public void MoveBg(Transform parent)
         {
             //Update the background position for both the X and Y axes\\
@@ -35,5 +41,6 @@ public class Parallax : MonoBehaviour
         }
     }
     [SerializeField] private Background[] bgs = new Background[1];
-    void Update() { foreach(Background bg in bgs) bg.MoveBg(transform);} 
+    void Update() { foreach(Background bg in bgs) bg.MoveBg(transform);}
+    void Start()  { foreach (Background bg in bgs) bg.SetBounds();}
 }
