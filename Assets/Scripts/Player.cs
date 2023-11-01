@@ -1,16 +1,14 @@
 using System;
 using UnityEngine;
-
 using System.Collections;
 using System.Collections.Generic;
-
 
 public class Player : Humanoid
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private float camSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
+    [SerializeField] private Gun gun; // Reference to the player's gun
 
     private int count = 0;
     private Vector3 targetPos;
@@ -20,20 +18,24 @@ public class Player : Humanoid
     private GameObject speedPotion; // Reference to the Speed Potion object
     private float baseSpeed;
     private float multiplier;
+    private readonly float camSpeed;
 
     int input()
     {
         return Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
     }
 
-    // Update is called once per frame
     private new void Update()
     {
         base.Update();
         Move(input());
         if (CheckForASCIIKey(' ')) Jump();
 
-        if (Input.GetMouseButtonDown(0)) Pew();
+        // Handle shooting with the trigger button (R key)
+        if (Input.GetKeyDown(KeyCode.R) && gun != null)
+        {
+            Shoot();
+        }
 
         // Handle speed boost
         if (speedBoostDuration > 0.0f)
@@ -77,6 +79,7 @@ public class Player : Humanoid
             Die();
         }
     }
+
     bool CheckForASCIIKey(int asciiValue)
     {
         if (Input.inputString.Length > 0)
@@ -91,11 +94,25 @@ public class Player : Humanoid
         }
         return false;
     }
+
     // Check if the player is dead and print "You Died"
     private void Die()
     {
         Debug.Log("You Died");
         // You can add more game over logic here, such as restarting the level or ending the game.
+    }
+
+    // Method to pick up the gun
+    private void PickUpGun()
+    {
+        gun.gameObject.SetActive(true); // Activate the gun
+        gun = null; // Remove reference to the gun (assumes you can only carry one gun)
+    }
+
+    // Method to shoot the gun
+    private void Shoot()
+    {
+        gun.Shoot(); // Call the Shoot method in the Gun script
     }
 
     private void FixedUpdate()
@@ -112,6 +129,4 @@ public class Player : Humanoid
             cam.transform.position.z
         );
     }
-
-    
 }
