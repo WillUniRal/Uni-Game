@@ -5,7 +5,6 @@ using System;
 
 public class Humanoid : MonoBehaviour
 {
-    // Start is called before the first frame update
     [HideInInspector] public Rigidbody2D rb;
     public float speed = 3f;
     public float jumpForce = 10f;
@@ -20,7 +19,7 @@ public class Humanoid : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         gc = gameObject.GetComponentInChildren<GroundCheck>();
     }
-    public void Move(int amount) {
+    public void Move(int amount) { //move the player
         rb.velocity = new (speed * amount,rb.velocity.y);
         if (amount == 0) return;
         transform.localScale = new Vector3(
@@ -31,6 +30,7 @@ public class Humanoid : MonoBehaviour
     }
     public void Jump() {
         if (!Grounded() || JumpCooldown) return;
+
         rb.AddForceY(jumpForce);
         JumpCooldown = true;
     }
@@ -41,10 +41,10 @@ public class Humanoid : MonoBehaviour
     }
     public void HumanoidUpdate()
     {
-        if (!JumpCooldown) return;
-        //Debug.Log(JumpCooldownTime);
+        if (!JumpCooldown) return; 
+
         JumpCooldownTime += Time.deltaTime;
-        if (JumpCooldownTime > 0.1f) {
+        if (JumpCooldownTime > 0.1f) { //stops from jumping instantly after
             JumpCooldownTime = 0f;
             JumpCooldown = false;
         }

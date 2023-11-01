@@ -822,7 +822,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -5113850848988359095, guid: fb1e159a037ccdc4590865ce9735b61c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -843,7 +843,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.09, y: 1.76, z: 0}
-  m_LocalScale: {x: 7.2202, y: 0.57210636, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -882,17 +882,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.003829956, y: 0.03794366}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 4, y: 0.625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.02783, y: 0.5699724}
   m_EdgeRadius: 0
 --- !u!50 &247139001
 Rigidbody2D:
@@ -934,17 +934,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPoints:
-  - wayPointPosition: {fileID: 695351106}
-    speed: 3.4
-    waitTime: 3.1
   - wayPointPosition: {fileID: 855955120}
     speed: 5.3
     waitTime: 3
+  - wayPointPosition: {fileID: 695351106}
+    speed: 3.4
+    waitTime: 3.1
   height: 2.33
   frequency: 0.7
   damping: 0.1
-  connectorOffset: 4.6
-  connectionOffset: 0.39
+  connectorOffset: 4.45
+  connectionOffset: 1.96
   connectionHeightOffset: 0
   points:
   - {fileID: 1895921175}
@@ -964,7 +964,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -0.39, y: 0}
+  m_Anchor: {x: -1.96, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 4.08
@@ -985,7 +985,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0.39, y: 0}
+  m_Anchor: {x: 1.96, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 4.08
@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bg: {fileID: 1284476329}
-  speed: 0.2
+  speed: 0.52
 --- !u!1 &695351105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1155,7 @@ Transform:
   m_GameObject: {fileID: 695351105}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.57, y: 0.54, z: 8.62}
+  m_LocalPosition: {x: 35.41, y: 2.2, z: 8.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1186,7 +1186,7 @@ Transform:
   m_GameObject: {fileID: 855955119}
   serializedVersion: 2
   m_LocalRotation: {x: 0.017626947, y: 0, z: 0, w: 0.9998447}
-  m_LocalPosition: {x: 41.29, y: 4.46, z: -1.2132839}
+  m_LocalPosition: {x: 51.99, y: -5.99, z: -1.2132839}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1551,7 +1551,7 @@ Transform:
   m_GameObject: {fileID: 1470777273}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.49, y: 4.09, z: 4.6}
+  m_LocalPosition: {x: 8.64, y: 4.09, z: 4.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5522,7 +5522,7 @@ Transform:
   m_GameObject: {fileID: 1895921175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.69, y: 4.09, z: 4.6}
+  m_LocalPosition: {x: 17.54, y: 4.09, z: 4.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

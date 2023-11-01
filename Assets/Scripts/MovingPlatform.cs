@@ -144,16 +144,15 @@ public class MovingPlatform : MonoBehaviour
             //these settings work well for what im trying to do
             joints[i].autoConfigureConnectedAnchor = false;
             joints[i].autoConfigureDistance = false;
-            joints[i].connectedBody = rb;
-            //joints[i].connectedAnchor = new (newObj.transform.position.x, newObj.transform.position.y);
+            joints[i].connectedBody = rb; 
+
             //set the settings to variables that can be modified in inspector so they you can experiment easily
             joints[i].frequency = frequency;
             joints[i].dampingRatio = damping;
             joints[i].distance = height;
             joints[i].anchor = connections[i];
 
-            points[i].name = "point " + (i + 1).ToString();
-            //points[i].transform.parent = transform;
+            points[i].name = "point " + (i + 1).ToString(); 
             points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, 0f);
         }
     }
@@ -167,13 +166,9 @@ public class MovingPlatform : MonoBehaviour
         for (int i = 0; i < points.Length; i++)
         {
             joints = GetComponents<SpringJoint2D>();
-            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, 0f);
-
-            //joints[i].maxDistance = height;
-            //joints[i].minDistance = height;
-
-            joints[i].anchor = connections[i];
-            //joints[i].spring = spring;
+            //sets the transform of points and what its attached to.
+            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, 0f);  
+            joints[i].anchor = connections[i]; 
         }
     }
     private void OnDrawGizmos()

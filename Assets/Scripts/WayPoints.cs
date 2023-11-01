@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class WayPoints 
 {
-    public Transform wayPointPosition;
-    public float speed;
-    public float waitTime;
+    public Transform wayPointPosition; //position of the destination the object will end up in
+    public float speed; //how fast It will go after that pos
+    public float waitTime; //how long it will wait at that pos
 
     private Vector3 defaultPos;
 
@@ -21,7 +21,7 @@ public class WayPoints
     [HideInInspector]
     public WayPoints() { }
     [HideInInspector]
-    public Vector3 pos()
+    public Vector3 pos() //just looks better than typing wayPoints[i].wayPointPosition.position (wayPoints[i].pos())
     {
         try
         {

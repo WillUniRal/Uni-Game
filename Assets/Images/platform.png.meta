@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6760f9457cddc254aa70dbcc9813902d
+guid: fb1e159a037ccdc4590865ce9735b61c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1518066804766412564
-    second: sandyTileTop_0
+      213: -5113850848988359095
+    second: platform_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -98,22 +98,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sandyTileTop_0
+      name: platform_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 16
-        height: 16
+        y: 6
+        width: 64
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce0f59cb84ebeeae0800000000000000
-      internalID: -1518066804766412564
+      spriteID: 94618b74fb3f709b0800000000000000
+      internalID: -5113850848988359095
       vertices: []
       indices: 
       edges: []
@@ -121,7 +121,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 884b85e6e96d10a4a9ed6c7cc7584ba3
     internalID: 0
     vertices: []
     indices: 
@@ -129,7 +129,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sandyTileTop_0: -1518066804766412564
+      platform_0: -5113850848988359095
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
