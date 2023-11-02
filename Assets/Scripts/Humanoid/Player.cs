@@ -2,13 +2,15 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Player : Humanoid
 {
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
-    [SerializeField] private Gun gun; // Reference to the player's gun
+    [SerializeField] private GameObject gunn; // Reference to the player's gun
+    private Gun gun;
     [SerializeField] private GameObject HealthBar;
     [SerializeField] private GameObject HealthBarBorder;
     private Vector3 targetPos;
@@ -37,11 +39,13 @@ public class Player : Humanoid
     private new void Start()
     {
         base.Start();
+        gun = gunn.GetComponent<Gun>();
     }
     // Update is called once per frame
     private void Update()
     {
         HumanoidUpdate();
+        if (death) return;
         Move(input());
         if (CheckForASCIIKey(' ')) Jump();
         SpeedBoost();
@@ -149,14 +153,18 @@ public class Player : Humanoid
     }
 
     // Check if the player is dead and print "You Died"
+    private bool death = false;
     public void Die()
     {
         HealthBar.SetActive(false);
         HealthBarBorder.SetActive(false);
-        Debug.Log("You Died");
         deathstatus.SetActive(true);
         
-        // You can add more game over logic here, such as restarting the level or ending the game.
+        deathstatus.GetComponent<Death>().deathWait = 3f;
+        death = true;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0f,0f,0f,0f);
+        gunn.SetActive(false);
+        
     }
 
     // Method to pick up the gun
