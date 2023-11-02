@@ -13,6 +13,7 @@ public class Player : Humanoid
     private Vector3 targetPos;
 
     private float invisDuration = 0.0f;
+    [HideInInspector] public static bool invis = false;
 
     private float baseSpeed;
     [SerializeField] private float speedBoostMultiplier = 2f; // Speed increase multiplier
@@ -46,6 +47,7 @@ public class Player : Humanoid
         SpeedBoost();
         JumpBoost();
         Regen();
+        Invis();
     }
     private void SpeedBoost()
     {
@@ -83,6 +85,18 @@ public class Player : Humanoid
             if (regenDuration % 0.5 > 0.4f && regenDelta % 0.5 < 0.1f) HP = Math.Min(regenHpAmount+HP,100);
         }
     }
+    private void Invis()
+    {
+        if(invisDuration > 0.0f)
+        {
+            invisDuration -= Time.deltaTime;
+            if (invisDuration <= 0.0f)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                invis = false;
+            }
+        }
+    }
 
     // Apply speed boost to the player
     public void ApplySpeedBoost(float duration)
@@ -102,7 +116,9 @@ public class Player : Humanoid
     }
      public void ApplyInvis(float duration)
      {
+        invis = true;
         invisDuration = duration;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f/ 4);
      }
 
     // Modify the TakeDamage method to update player HP

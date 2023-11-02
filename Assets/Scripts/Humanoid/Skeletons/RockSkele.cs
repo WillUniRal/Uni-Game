@@ -22,6 +22,7 @@ public class RockSkele : Enemy
     }
     void Pew()
     {
+        if (Player.invis) return;
         float direction = Math.Sign(transform.localScale.x);
         count++;
         GameObject _bullet = Instantiate(bullet);

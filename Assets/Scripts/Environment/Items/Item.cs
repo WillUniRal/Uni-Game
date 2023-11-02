@@ -31,8 +31,6 @@ public class Item : MonoBehaviour
                 case ItemType.regenPotion:
                     player.ApplyRegen(5f);
                     break;
-                case ItemType.sheildPotion:
-                    break;
                 case ItemType.spellOfJump:
                     player.ApplyJumpBoost(5f);
                     break;
