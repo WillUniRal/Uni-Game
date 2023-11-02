@@ -9,7 +9,8 @@ public class Player : Humanoid
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform poslol;
     [SerializeField] private Gun gun; // Reference to the player's gun
-
+    [SerializeField] private GameObject HealthBar;
+    [SerializeField] private GameObject HealthBarBorder;
     private Vector3 targetPos;
 
     private float invisDuration = 0.0f;
@@ -48,6 +49,7 @@ public class Player : Humanoid
         JumpBoost();
         Regen();
         Invis();
+        HealthBar.transform.localScale = new Vector3 (Math.Max(0f,Mathf.Lerp(HealthBar.transform.localScale.x, HP/100f,Time.deltaTime*10f)),1f,1f);
     }
     private void SpeedBoost()
     {
@@ -150,6 +152,8 @@ public class Player : Humanoid
     // Check if the player is dead and print "You Died"
     private void Die()
     {
+        HealthBar.SetActive(false);
+        HealthBarBorder.SetActive(false);
         Debug.Log("You Died");
         deathstatus.SetActive(true);
         
