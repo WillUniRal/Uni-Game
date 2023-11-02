@@ -5,10 +5,23 @@ using System;
 public class FireballSkele : Enemy
 {
     int count = 0;
+    float cooldown = 5.0f;
+    float firerate = 1.0f;
     // Update is called once per frame
     private void Update() {
         EnemyUpdate(); //call base enemy update
-        
+
+
+        cooldown -= Time.deltaTime;
+        if (cooldown < 0)
+        {
+            firerate -= Time.deltaTime;
+            if (firerate < 0)
+            {
+                Pew();
+            }
+        }
+
     }
 
     void Pew()
