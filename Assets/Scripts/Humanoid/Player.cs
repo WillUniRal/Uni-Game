@@ -49,7 +49,7 @@ public class Player : Humanoid
         JumpBoost();
         Regen();
         Invis();
-        HealthBar.transform.localScale = new Vector3 (Math.Max(0f,Mathf.Lerp(HealthBar.transform.localScale.x, HP/100f,Time.deltaTime)),1f,1f);
+        HealthBar.transform.localScale = new Vector3 (Math.Max(0f,Mathf.Lerp(HealthBar.transform.localScale.x, HP/100f,Time.deltaTime*10f)),1f,1f);
     }
     private void SpeedBoost()
     {
