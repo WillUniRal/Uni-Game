@@ -970,13 +970,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   speed: 3
-  jumpForce: 10
+  jumpForce: 360
   gc: {fileID: 0}
   HP: 100
   startScale: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   wayPoints:
-  - wayPointPosition: {fileID: 0}
+  - wayPointPosition: {fileID: 1479469447}
+    speed: 0
+    waitTime: 0
+  - wayPointPosition: {fileID: 330592702}
     speed: 0
     waitTime: 0
   attackDamage: 10
