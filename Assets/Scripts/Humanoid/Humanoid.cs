@@ -22,8 +22,9 @@ public class Humanoid : MonoBehaviour
     public void Move(int amount) { //move the player
         rb.velocity = new (speed * amount,rb.velocity.y);
         if (amount == 0) return;
+
         transform.localScale = new Vector3(
-            startScale.x * Math.Sign(amount),
+            startScale.x * Math.Sign(amount), //this code flips the Humaoid
             transform.localScale.y,
             transform.localScale.z
         );
@@ -31,7 +32,7 @@ public class Humanoid : MonoBehaviour
     public void Jump() {
         if (!Grounded() || JumpCooldown) return;
 
-        rb.AddForceY(jumpForce);
+        rb.AddForceY(jumpForce); //make boi go up ez
         JumpCooldown = true;
     }
     public Vector3 startScale;

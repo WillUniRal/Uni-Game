@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
         spellOfInvisiblity
     }
 
-    [SerializeField] private ItemType type;
+    [SerializeField] private ItemType type; // mmm dropdown yum
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,8 +23,9 @@ public class Item : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
             if (player == null) return;
+            // Please ignore my bad code I did for omar. No powerup class :(
             switch (type)
-            {
+            { 
                 case ItemType.gun:
                     player.PickUpGun();
                     break;

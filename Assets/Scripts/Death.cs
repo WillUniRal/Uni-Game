@@ -10,11 +10,9 @@ public class Death : MonoBehaviour
     {
         if (deathWait > 0.0f)
         {
+            // We need time to read the death screen ofc
             deathWait -= Time.deltaTime;
-            if (deathWait <= 0.0f)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            if (deathWait <= 0.0f) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //RESTART
 
         }
     }

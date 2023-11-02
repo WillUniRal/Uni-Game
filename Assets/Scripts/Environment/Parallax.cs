@@ -43,6 +43,6 @@ public class Parallax : MonoBehaviour
         }
     }
     [SerializeField] private Background[] bgs = new Background[1];
-    void Update() { foreach(Background bg in bgs) bg.MoveBg(transform);}
-    void Start()  { foreach (Background bg in bgs) bg.SetBounds();}
+    void Update() { foreach(Background bg in bgs) bg.MoveBg(transform);} // Move every background in the array
+    void Start()  { foreach (Background bg in bgs) bg.SetBounds(); } // Initialize every background in the array
 }

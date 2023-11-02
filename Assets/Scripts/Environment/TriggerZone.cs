@@ -11,7 +11,6 @@ public class TriggerZone : MonoBehaviour
         Death
     }
     [SerializeField] private Mode mode = Mode.Win;
-    // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();

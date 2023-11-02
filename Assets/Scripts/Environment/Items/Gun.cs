@@ -21,8 +21,10 @@ public class Gun : MonoBehaviour
     public void Shoot() // the Shoot method
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(new Vector3(-Math.Sign(transform.lossyScale.x),0f,0f) * bulletForce, ForceMode2D.Impulse);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); // Get physics cos why not
+        //PEW lossy scale is global scale, cos it needs the scale of the player as well
+        rb.AddForce(new Vector3(-Math.Sign(transform.lossyScale.x),0f,0f) * bulletForce, ForceMode2D.Impulse); 
+       
     }
 }
 
