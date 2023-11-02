@@ -5,23 +5,48 @@ using System;
 public class FireballSkele : Enemy
 {
     int count = 0;
-    float cooldown = 5.0f;
-    float firerate = 1.0f;
-    // Update is called once per frame
-    private void Update() {
-        EnemyUpdate(); //call base enemy update
+    private float shootingTime = 5f; // Total time for shooting
+    private float shootInterval = 1f; // Interval between shots
+    private float cooldownTime = 5f; // Cooldown time
+    private float shootingTimer = 0f;
+    private float intervalTimer = 0f;
+    private float cooldownTimer = 0f;
+    private bool isShooting = false;
 
+    private void Update()
+    {
+        EnemyUpdate();
 
-        cooldown -= Time.deltaTime;
-        if (cooldown < 0)
+        if (!isShooting)
         {
-            firerate -= Time.deltaTime;
-            if (firerate < 0)
+            cooldownTimer -= Time.deltaTime;
+
+            if (cooldownTimer <= 0)
             {
-                Pew();
+                isShooting = true;
+                shootingTimer = shootingTime;
             }
         }
+        else
+        {
+            shootingTimer -= Time.deltaTime;
 
+            if (shootingTimer > 0)
+            {
+                intervalTimer -= Time.deltaTime;
+
+                if (intervalTimer <= 0)
+                {
+                    Pew();
+                    intervalTimer = shootInterval;
+                }
+            }
+            else
+            {
+                isShooting = false;
+                cooldownTimer = cooldownTime;
+            }
+        }
     }
 
     void Pew()
