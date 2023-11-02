@@ -70,6 +70,7 @@ public class Player : Humanoid
     public void TakeDamage(int damage)
     {
         HP -= damage;
+        Debug.Log(HP);
         if (HP <= 0)
         {
             Die();
@@ -94,8 +95,9 @@ public class Player : Humanoid
     // Check if the player is dead and print "You Died"
     private void Die()
     {
-        deathstatus.SetActive(true);
         Debug.Log("You Died");
+        deathstatus.SetActive(true);
+        
         // You can add more game over logic here, such as restarting the level or ending the game.
     }
 
