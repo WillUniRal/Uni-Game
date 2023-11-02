@@ -150,7 +150,7 @@ public class Player : Humanoid
     }
 
     // Check if the player is dead and print "You Died"
-    private void Die()
+    public void Die()
     {
         HealthBar.SetActive(false);
         HealthBarBorder.SetActive(false);
