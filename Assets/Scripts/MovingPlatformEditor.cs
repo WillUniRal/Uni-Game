@@ -19,7 +19,7 @@ public class PlatformEditor : Editor
         //initiate the offset
         if (GUILayout.Button("Generate connections")) plt.InstantiateConnectors(); //this makes a button in the inspector 
         //set the offset 
-        if (plt.points != null && plt.points.Length == 4) plt.SetConnectors();
+        if (plt.points != null && plt.points.Length == 2) plt.SetConnectors();
 
 
     }
