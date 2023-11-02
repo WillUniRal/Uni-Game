@@ -33,11 +33,10 @@ public class Player : Humanoid
     {
         return Convert.ToInt32(Input.GetKey(KeyCode.D)) - Convert.ToInt32(Input.GetKey(KeyCode.A));
     }
-    private GameObject deathstatus;
+    [SerializeField] private GameObject deathstatus;
     private new void Start()
     {
         base.Start();
-        deathstatus = cam.transform.GetChild(0).gameObject;
     }
     // Update is called once per frame
     private void Update()
