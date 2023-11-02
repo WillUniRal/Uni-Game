@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
@@ -18,11 +18,11 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void Shoot() // Make the Shoot method public
+    public void Shoot() // the Shoot method
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+        rb.AddForce(new Vector3(-Math.Sign(transform.lossyScale.x),0f,0f) * bulletForce, ForceMode2D.Impulse);
     }
 }
 

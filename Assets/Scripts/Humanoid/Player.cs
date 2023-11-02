@@ -12,11 +12,19 @@ public class Player : Humanoid
 
     private Vector3 targetPos;
 
+    private float invisDuration = 0.0f;
+
+    private float baseSpeed;
     [SerializeField] private float speedBoostMultiplier = 2f; // Speed increase multiplier
     private float speedBoostDuration = 0.0f; // Duration of the speed boost
-    private GameObject speedPotion; // Reference to the Speed Potion object
-    private float baseSpeed;
-    private float multiplier;
+
+    private float baseJumpForce;
+    [SerializeField] private float jumpBoostMultiplier = 2f;
+    private float jumpBoostDuration = 0.0f;
+
+    [SerializeField] private int regenHpAmount = 5;
+    private float regenDuration = 0.0f;
+
     [SerializeField] private float camSpeed;
 
     int input()
@@ -35,14 +43,12 @@ public class Player : Humanoid
         HumanoidUpdate();
         Move(input());
         if (CheckForASCIIKey(' ')) Jump();
-
-
-        // Handle shooting with the trigger button (R key)
-        if (Input.GetKeyDown(KeyCode.R) && gun != null)
-        {
-            Shoot();
-        }
-
+        SpeedBoost();
+        JumpBoost();
+        Regen();
+    }
+    private void SpeedBoost()
+    {
         // Handle speed boost
         if (speedBoostDuration > 0.0f)
         {
@@ -58,6 +64,25 @@ public class Player : Humanoid
             }
         }
     }
+    private void JumpBoost()
+    {
+        if (jumpBoostDuration > 0.0f)
+        {
+            jumpForce = baseJumpForce * jumpBoostMultiplier;
+            jumpBoostDuration -= Time.deltaTime;
+
+            if(jumpBoostDuration <= 0.0f) jumpForce = baseJumpForce; 
+        }
+    }
+    private void Regen()
+    {
+        if(regenDuration > 0.0f)
+        {
+            float regenDelta = regenDuration;
+            regenDuration -= Time.deltaTime;
+            if (regenDuration % 0.5 > 0.4f && regenDelta % 0.5 < 0.1f) HP = Math.Min(regenHpAmount+HP,100);
+        }
+    }
 
     // Apply speed boost to the player
     public void ApplySpeedBoost(float duration)
@@ -65,6 +90,20 @@ public class Player : Humanoid
         baseSpeed = speed;
         speedBoostDuration = duration;
     }
+
+    public void ApplyJumpBoost(float duration)
+    {
+        baseJumpForce = jumpForce;
+        jumpBoostDuration = duration;
+    }
+    public void ApplyRegen(float duration)
+    {
+        regenDuration = duration;
+    }
+     public void ApplyInvis(float duration)
+     {
+        invisDuration = duration;
+     }
 
     // Modify the TakeDamage method to update player HP
     public void TakeDamage(int damage)
@@ -100,17 +139,12 @@ public class Player : Humanoid
     }
 
     // Method to pick up the gun
-    private void PickUpGun()
+    public void PickUpGun()
     {
         gun.gameObject.SetActive(true); // Activate the gun
         gun = null; // Remove reference to the gun (assumes you can only carry one gun)
     }
 
-    // Method to shoot the gun
-    private void Shoot()
-    {
-        gun.Shoot(); // Call the Shoot method in the Gun script
-    }
 
     private void FixedUpdate()
     { 

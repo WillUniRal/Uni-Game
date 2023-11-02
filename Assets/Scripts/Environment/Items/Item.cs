@@ -26,17 +26,21 @@ public class Item : MonoBehaviour
             switch (type)
             {
                 case ItemType.gun:
+                    player.PickUpGun();
                     break;
                 case ItemType.regenPotion:
+                    player.ApplyRegen(5f);
                     break;
                 case ItemType.sheildPotion:
                     break;
                 case ItemType.spellOfJump:
+                    player.ApplyJumpBoost(5f);
                     break;
                 case ItemType.spellOfSpeed:
                     player.ApplySpeedBoost(5f);
                     break;
                 case ItemType.spellOfInvisiblity:
+                    player.ApplyInvis(5f);
                     break;
             }
             Destroy(gameObject);

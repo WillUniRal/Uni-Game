@@ -60,7 +60,14 @@ public class Enemy : Humanoid
         if (Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) < Time.deltaTime * speed * 4) wayPointPos++;
     }
 
-    
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     private bool IsObstacleInFront()
     {
         // Cast a ray in the forward direction to detect obstacles
