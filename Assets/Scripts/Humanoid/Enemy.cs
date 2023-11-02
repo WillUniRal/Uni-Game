@@ -57,7 +57,7 @@ public class Enemy : Humanoid
         // Move left or right using the base class's "Move" method
         Move(Math.Sign(direction.x));
 
-        if (Math.Sqrt(Math.Pow(directionNotNormalized.x, 2)) < Time.deltaTime * speed * 4) wayPointPos++;
+        if (Math.Abs(directionNotNormalized.x) < Time.deltaTime * speed * 4) wayPointPos++;
     }
 
     public void TakeDamage(int damage)
